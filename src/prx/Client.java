@@ -23,7 +23,7 @@ public class Client {
         Client client;
         try{
             client = new Client("127.0.0.1", 4000);
-            client.request(12335);
+            client.request(348);
             client.getResponse();
             client.close();
             
@@ -50,6 +50,7 @@ public class Client {
     
     void getResponse(){
         int c;
+        System.out.print("O numero enviado eh: ");
         try{
             while((c = is.read()) != -1){
                 System.out.print((char) c);
@@ -57,6 +58,7 @@ public class Client {
         }catch(IOException e){
             System.err.println("IOException na leitura do cliente");
         }
+        System.out.print("\n");
     }
     
     public void close(){

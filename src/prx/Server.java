@@ -57,22 +57,12 @@ public class Server {
     
     void returnResponse(){
         PrintStream printer = new PrintStream(os);
-        //try{
             if(resource%2 == 0){
                 printer.print("PAR");
-                //f = new FileInputStream("Par");
-                //while((c = f.read()) != -1)
-                //    os.write(c);
             }
             else{
                 printer.print("IMPAR");
-                //f = new FileInputStream("Impar");
-                //while((c = f.read()) != -1)
-                //    os.write(c);
             }
             printer.close();
-        //}catch(IOException e){
-        //    System.err.println("Erro ao responder a solicitacao");
-        //}
     }
 }

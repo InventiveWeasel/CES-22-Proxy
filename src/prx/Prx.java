@@ -29,6 +29,8 @@ public class Prx {
             
             String clientRequest = proxy.getClientRequest();
             proxy.sendClientRequest(clientRequest);
+            String response = proxy.getServerResponse();
+            proxy.sendServerResponse(response);
             
         }catch (IOException e){
             System.err.println("Erro no proxy");
@@ -69,5 +71,25 @@ public class Prx {
     void sendClientRequest(String message){
         PrintStream printer = new PrintStream(osClient);
         printer.print(message);
+    }
+    
+    String getServerResponse(){
+        String response = "";
+        int c;
+        try{
+            String message;
+            while((c = isClient.read()) != -1){
+                response = response + (char)c;
+            }
+        }catch(IOException e){
+            System.err.println("Erro no proxy ao receber resposta do servidor");
+        }
+        return response;
+    }
+    
+    void sendServerResponse(String response){
+        PrintStream printer = new PrintStream(osServer);
+        printer.print(response);
+        printer.close();
     }
 }
