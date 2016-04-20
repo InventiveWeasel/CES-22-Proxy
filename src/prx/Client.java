@@ -22,7 +22,7 @@ public class Client {
     public static void main(String[] args){
         Client client;
         try{
-            client = new Client("127.0.0.1", 3122);
+            client = new Client("127.0.0.1", 4000);
             client.request(12335);
             client.getResponse();
             client.close();
