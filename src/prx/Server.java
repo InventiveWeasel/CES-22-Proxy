@@ -14,26 +14,65 @@ import java.net.*;
  */
 public class Server {
     OutputStream os;
-    InputStream is;
-    
+    BufferedReader is;
+    Socket client;
+    int resource;
     
     public static void main(String[] args){
         try{
-            ServerSocket server = new ServerSocket(3122);
+            ServerSocket s = new ServerSocket(3122);
             System.out.println("Servidor iniciado na porta 3122");
-            System.out.println("Porta = "+server.getLocalPort());
-           
+            System.out.println("Porta = "+s.getLocalPort());
+            Server server = new Server(s.accept());
             
             //Se o cliente conseguir se conectar
-            System.out.println("Cliente conectado do IP "+client.getInetAddress().getHostAddress());
+            System.out.println("Cliente conectado do IP "+s.getInetAddress().getHostAddress());
             
-            server.close();
+            server.getRequest();
+            server.returnResponse();
         }catch(IOException e){
             System.err.println("IOException in Server");
         }
     }
     
-    private void getRequest(){
-        
+    Server(Socket s) throws IOException{
+        client = s;
+        os = s.getOutputStream();
+        is = new BufferedReader(new InputStreamReader(s.getInputStream()));
+    }
+    
+    void getRequest(){
+        try{
+            String message;
+            while((message=is.readLine()) != null){
+                if(message.equals(""))
+                    break;
+                System.err.println(message);
+                resource = Integer.valueOf(message);
+            }
+        }catch(IOException e){
+            System.err.println("Erro ao receber a requisição");
+        }
+    }
+    
+    void returnResponse(){
+        PrintStream printer = new PrintStream(os);
+        //try{
+            if(resource%2 == 0){
+                printer.print("PAR");
+                //f = new FileInputStream("Par");
+                //while((c = f.read()) != -1)
+                //    os.write(c);
+            }
+            else{
+                printer.print("IMPAR");
+                //f = new FileInputStream("Impar");
+                //while((c = f.read()) != -1)
+                //    os.write(c);
+            }
+            printer.close();
+        //}catch(IOException e){
+        //    System.err.println("Erro ao responder a solicitacao");
+        //}
     }
 }
