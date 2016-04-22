@@ -7,6 +7,7 @@ import java.net.*;
  *
  * @author Gabriel Brito
  */
+//hahahahahaha
 public class Prx {
     //O proxy eh servidor e cliente ao mesmo tempo
     Socket socClient, socServer;
@@ -92,4 +93,5 @@ public class Prx {
         printer.print(response);
         printer.close();
     }
+    
 }
